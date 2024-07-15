@@ -12,7 +12,7 @@ import model.entidade.Produto;
 public class ProdutoDAOImpl implements ProdutoDAO {
 
 	private static final String INSERT = "INSERT INTO produto (nome, qtdEstoque) values (?, ?)";
-	private static final String UPDATE = "UPDATE produto SET nome = ?, qtdEStoque = ? WHERE idproduto = ?";
+	private static final String UPDATE = "UPDATE produto SET qtdEstoque = ? WHERE idproduto = ?";
 	private static final String EXCLUIR = "DELETE FROM  produto WHERE idproduto = ?";
 	private static final String LISTAR_TODOS = "SELECT * FROM  produto";
 	private static final String LISTAR_PRODUTOS_COM_POUCO_ESTOQUE = "SELECT * FROM Produto WHERE qtdEstoque < 10";
@@ -30,8 +30,8 @@ public class ProdutoDAOImpl implements ProdutoDAO {
 
 	private void alterarProduto(Produto produto) {
 		try (PreparedStatement ps = Conexao.getInstance().getConnection().prepareStatement(UPDATE)) {
-			ps.setString(1, produto.getNome());
-			ps.setInt(2, produto.getQtdEstoque());
+			ps.setInt(1, produto.getQtdEstoque());
+			ps.setInt(2, produto.getIdProduto());
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

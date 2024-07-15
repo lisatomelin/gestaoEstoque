@@ -108,7 +108,20 @@ public class CadastroProduto extends JFrame {
 			produto.setIdProduto(Integer.parseInt(textFieldId.getText()));
 		}
 		produto.setNome(textFieldNome.getText());
-		produto.setQtdEstoque(Integer.parseInt(textFieldQtdEstoque.getText()));
+		 try {
+		        int quantidade = Integer.parseInt(textFieldQtdEstoque.getText());
+		        if (quantidade < 0) {
+		            JOptionPane.showMessageDialog(this, "Não é possível adicionar valores menores que 0.",
+		                    "Aviso", JOptionPane.INFORMATION_MESSAGE);
+		        } else {
+		            produto.setQtdEstoque(quantidade);
+		        }
+		    } catch (NumberFormatException e) {
+		        JOptionPane.showMessageDialog(this, "Por favor, insira uma quantidade válida.",
+		                "Erro", JOptionPane.ERROR_MESSAGE);
+		    }
+
+		
 		return produto;
 	}
 
